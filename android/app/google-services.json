@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058761065072",
+    "project_id": "bakcengg-ncrypt",
+    "storage_bucket": "bakcengg-ncrypt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058761065072:android:34b3d281267b9b62cfeab5",
+        "android_client_info": {
+          "package_name": "com.bakcengg.ncrypt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058761065072-h0125gnmi70bovhn3jd9majgg0pemaj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-v6lYcRZy82f49DIPpAK0LRkCfzWVRnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058761065072-h0125gnmi70bovhn3jd9majgg0pemaj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
