@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ncrypt/service/secure_storage_service.dart';
@@ -6,7 +8,18 @@ import 'controller/auth_controller.dart';
 import 'models/user.dart';
 import 'routes.dart';
 
-void main() {
+Future<void> onBackgroundMessage(RemoteMessage message) async {
+  print("background message received");
+  print(message.toMap().toString());
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // FirebaseMessaging.instance.getToken().then((value){
+  //   print(value);
+  // });
+  FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
   runApp(const ProviderScope(child: App()));
 }
 

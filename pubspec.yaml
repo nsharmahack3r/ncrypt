@@ -30,6 +30,10 @@ dependencies:
 
   sensors_plus: ^2.0.1
 
+  #firebase
+  firebase_core: ^2.3.0
+  firebase_messaging: ^14.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
