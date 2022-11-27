@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ncrypt/components/profile_image.dart';
 import 'package:ncrypt/controller/auth_controller.dart';
 import 'package:ncrypt/screens/chat_menu.dart';
+import 'package:routemaster/routemaster.dart';
 
 import '../components/drawer.dart';
 
@@ -37,7 +39,12 @@ class HomeScreen extends ConsumerWidget {
             const ChatMenu(),
             Container(),
           ],
-
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.push('/findUsers');
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );

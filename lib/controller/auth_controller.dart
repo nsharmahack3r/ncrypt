@@ -37,11 +37,18 @@ class AuthController extends StateNotifier<bool>{
     _ref.read(userProvider.notifier).update((state) => null);
   }
 
-  void signUp({ required String email, required String password, required BuildContext context}) async {
+  void signUp({
+    required String email,
+    required String password,
+    required String name,
+    required String username,
+    required BuildContext context,
+  }) async {
     state = true;
-    final User? user = await _authRepository.signUp(email: email, password: password);
+    final User? user = await _authRepository.signUp(email: email, password: password, name: name, username: username);
     if(user == null){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to login")));
+      state = false;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to signup")));
       return ;
     }
     state = false;
@@ -49,5 +56,4 @@ class AuthController extends StateNotifier<bool>{
     _ref.read(secureStorageProvider).saveUser(user);
     _ref.read(userProvider.notifier).update((state) => user);
   }
-
 }

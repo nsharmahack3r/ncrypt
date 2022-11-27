@@ -29,16 +29,15 @@ class LoginScreen extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-      body: StreamBuilder<AccelerometerEvent>(
-        stream: accelerometerEvents,
-        builder: (context, event){
-          final AccelerometerEvent? acceleration = event.data;
-          if(acceleration == null) {
-            return Container();
-          }
-          return Stack(
-            children: [
-              AnimatedPositioned(
+      body: Stack(
+        children: [
+          StreamBuilder<AccelerometerEvent>(
+            builder: (context, event){
+              final AccelerometerEvent? acceleration = event.data;
+              if(acceleration == null) {
+                return Container();
+              }
+              return AnimatedPositioned(
                 duration: const Duration(milliseconds: 100),
                 top: acceleration.y * bgMotionSensitivityL2,
                 bottom: acceleration.y * -bgMotionSensitivityL2,
@@ -52,8 +51,17 @@ class LoginScreen extends ConsumerWidget {
                     //fit: BoxFit.fitHeight,
                   ),
                 ),
-              ),
-              AnimatedPositioned(
+              );
+            },
+          ),
+
+          StreamBuilder<AccelerometerEvent>(
+            builder: (context, event){
+              final AccelerometerEvent? acceleration = event.data;
+              if(acceleration == null) {
+                return Container();
+              }
+              return AnimatedPositioned(
                 duration: const Duration(milliseconds: 100),
                 top: acceleration.y * bgMotionSensitivity,
                 bottom: acceleration.y * -bgMotionSensitivity,
@@ -67,75 +75,75 @@ class LoginScreen extends ConsumerWidget {
                     //fit: BoxFit.fitHeight,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: SafeArea(
-                  child: Container(
-                    height: size.height,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              );
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: SafeArea(
+              child: Container(
+                height: size.height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: size.height * 0.1,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        //mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: size.height * 0.1,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            //mainAxisAlignment: MainAxisAlignment.center,
+                          const Text(
+                            "Hello Messiah!",
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 40
+                            ),
+                          ),
+                          Row(
                             children: [
                               const Text(
-                                "Hello Messiah!",
+                                "Login to continue or SignUp",
                                 style: TextStyle(
                                     color: Colors.teal,
-                                    fontSize: 40
+                                    fontSize: 23
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Login to continue or SignUp",
-                                    style: TextStyle(
-                                        color: Colors.teal,
-                                        fontSize: 25
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: (){
-                                        Routemaster.of(context).replace('/signup');
-                                      },
-                                      icon: const Icon(Icons.arrow_forward_rounded, color: Colors.teal,))
-                                ],
-                              ),
-                              SizedBox(height: size.height * 0.05,),
-                              Hero(
-                                tag: 'EARTH',
-                                child: Image.asset(
-                                  "assets/images/earth.png",
-                                  width: 250,
-                                  height: 250,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
+                              IconButton(
+                                  onPressed: (){
+                                    Routemaster.of(context).replace('/signup');
+                                  },
+                                  icon: const Icon(Icons.arrow_forward_rounded, color: Colors.teal,))
                             ],
                           ),
                           SizedBox(height: size.height * 0.05,),
-                          CustomTextField(controller: idController, hintText: 'email'),
-                          const SizedBox(height: 20,),
-                          CustomTextField(controller: passwordController, hintText: 'password'),
-                          const SizedBox(height: 20,),
-                          isLoading? CircularProgressIndicator():
-                          ElevatedButton(
-                              onPressed: () => login(ref, context),
-                              child: const Text("Enter World")),
+                          Hero(
+                            tag: 'EARTH',
+                            child: Image.asset(
+                              "assets/images/earth.png",
+                              width: 250,
+                              height: 250,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
                         ],
                       ),
-                    ),
+                      SizedBox(height: size.height * 0.05,),
+                      CustomTextField(controller: idController, hintText: 'email'),
+                      const SizedBox(height: 20,),
+                      CustomTextField(controller: passwordController, hintText: 'password'),
+                      const SizedBox(height: 20,),
+                      isLoading? CircularProgressIndicator():
+                      ElevatedButton(
+                          onPressed: () => login(ref, context),
+                          child: const Text("Enter World")),
+                    ],
                   ),
                 ),
               ),
-            ],
-          );
-        }
+            ),
+          ),
+        ],
       ),
     );
   }

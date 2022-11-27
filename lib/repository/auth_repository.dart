@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -12,14 +13,15 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 class AuthRepository{
-  ApiService _service;
+  final ApiService _service;
 
   AuthRepository({required ApiService service}): _service = service;
 
   Future<User?> login ({required String email, required String password}) async {
-    final body = {
+    final Map<String, String> body = {
       "email":email,
-      "password":password
+      "password":password,
+      "fcmToken": "${ await FirebaseMessaging.instance.getToken() }"
     };
     Either<Failure, dynamic> result = await _service.postRequest(url: ApiEndPoints.login, body: body);
     return result.fold((l){
@@ -35,10 +37,18 @@ class AuthRepository{
     });
   }
 
-  Future<User?> signUp ({ required String email, required String password}) async {
-    final body = {
+  Future<User?> signUp ({
+    required String email,
+    required String password,
+    required String name,
+    required String username
+  }) async {
+    final Map<String, String> body = {
       "email":email,
-      "password":password
+      "password":password,
+      "fcmToken": "${ await FirebaseMessaging.instance.getToken() }",
+      "name": name,
+      "username": username
     };
     Either<Failure, dynamic> result = await _service.postRequest(url: ApiEndPoints.signup, body: body);
     return result.fold((l){
@@ -54,6 +64,6 @@ class AuthRepository{
     });
   }
   void logOut() async {
-    
+    print("User logged out.");
   }
 }

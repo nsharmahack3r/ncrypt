@@ -9,6 +9,10 @@ import '../models/failure.dart';
 class ApiService{
   Either<Failure, dynamic> _returnAPIResult(http.Response response) {
     try {
+      final data = jsonDecode(response.body);
+      if(data['error'] != null){
+        return Left(Failure(message: data['error']));
+      }
       return Right(jsonDecode(response.body));
     } on FormatException {
       return Left(Failure(message: "Failed to Format"));

@@ -43,14 +43,14 @@ User copyWith({
   username: username ?? this.username,
   avatar : avatar ?? this.avatar,
 );
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['jwt'] = jwt;
-    map['_id'] = id;
-    map['email'] = email;
-    map['username'] = username;
-    map['name'] = name;
-    map['avatar'] = avatar;
+  Map<String, String> toJson() {
+    final map = <String, String>{};
+    map['jwt'] = '$jwt';
+    map['_id'] = "$id";
+    map['email'] = "$email";
+    map['username'] = "$username";
+    map['name'] = "$name";
+    map['avatar'] = "$avatar";
     return map;
   }
 }

@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ncrypt/service/secure_storage_service.dart';
-import 'package:routemaster/routemaster.dart';
 import 'controller/auth_controller.dart';
 import 'models/user.dart';
 import 'routes.dart';
@@ -16,9 +15,6 @@ Future<void> onBackgroundMessage(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // FirebaseMessaging.instance.getToken().then((value){
-  //   print(value);
-  // });
   FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
   runApp(const ProviderScope(child: App()));
 }
@@ -55,14 +51,7 @@ class _AppState extends ConsumerState<App> {
         primarySwatch: Colors.teal,
         brightness: Brightness.dark,
       ),
-      routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
-        final User? user = ref.watch(userProvider);
-        if (user != null) {
-          return loggedInRoute;
-        }
-        return loggedOutRoute;
-      }),
-      routeInformationParser: const RoutemasterParser(),
+     routerConfig: ref.watch(userProvider) != null ? authRouter : noAuthRouter,
     );
   }
 }
