@@ -5,7 +5,6 @@ import 'package:ncrypt/screens/find_users.dart';
 import 'package:ncrypt/screens/home_screen.dart';
 import 'package:ncrypt/screens/login_screen.dart';
 import 'package:ncrypt/screens/signup_screen.dart';
-import 'package:routemaster/routemaster.dart';
 
 import 'models/user.dart';
 final GoRouter authRouter = GoRouter(
@@ -31,6 +30,10 @@ final GoRouter noAuthRouter = GoRouter(
     GoRoute(
       path: "/",
       builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: "/signup",
+      builder: (context, state) => const SignupScreen(),
     ),
   ],
 );

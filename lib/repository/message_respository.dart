@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -6,6 +7,11 @@ import 'package:ncrypt/service/api_service.dart';
 import 'package:ncrypt/values/endpoints.dart';
 
 import '../models/failure.dart';
+
+Future<void> onBackgroundMessage(RemoteMessage message) async {
+  //to decode the message sent by the user.
+
+}
 
 final messageRepositoryProvider = Provider<MessageRepository>((ref) {
   return MessageRepository(service: ApiService());

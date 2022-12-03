@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ncrypt/service/secure_storage_service.dart';
-import 'package:routemaster/routemaster.dart';
 import '../models/user.dart';
 import '../repository/auth_repository.dart';
 
@@ -52,7 +52,7 @@ class AuthController extends StateNotifier<bool>{
       return ;
     }
     state = false;
-    Routemaster.of(context).replace('/');
+    context.replace('/');
     _ref.read(secureStorageProvider).saveUser(user);
     _ref.read(userProvider.notifier).update((state) => user);
   }

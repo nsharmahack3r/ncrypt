@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ncrypt/widgets/text_field.dart';
-import 'package:routemaster/routemaster.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../controller/auth_controller.dart';
 
@@ -111,7 +111,7 @@ class LoginScreen extends ConsumerWidget {
                               ),
                               IconButton(
                                   onPressed: (){
-                                    Routemaster.of(context).replace('/signup');
+                                    context.replace('/signup');
                                   },
                                   icon: const Icon(Icons.arrow_forward_rounded, color: Colors.teal,))
                             ],
@@ -133,7 +133,7 @@ class LoginScreen extends ConsumerWidget {
                       const SizedBox(height: 20,),
                       CustomTextField(controller: passwordController, hintText: 'password'),
                       const SizedBox(height: 20,),
-                      isLoading? CircularProgressIndicator():
+                      isLoading? const CircularProgressIndicator():
                       ElevatedButton(
                           onPressed: () => login(ref, context),
                           child: const Text("Enter World")),

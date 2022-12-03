@@ -1,7 +1,13 @@
 import 'dart:convert';
 
+import 'package:isar/isar.dart';
+
+part 'user.g.dart';
+
 User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
+
+@collection
 class User {
   User({
       this.jwt, 
@@ -20,6 +26,7 @@ class User {
     username = json['username'];
     avatar = json['avatar'];
   }
+  Id? internalId;
   String? jwt;
   String? id;
   String? email;

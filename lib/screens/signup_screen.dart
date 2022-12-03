@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'package:routemaster/routemaster.dart';
 import '../controller/auth_controller.dart';
 import '../widgets/text_field.dart';
 
@@ -124,7 +124,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               ),
                               IconButton(
                                   onPressed: (){
-                                    Routemaster.of(context).replace('/');
+                                    context.replace('/');
                                   },
                                   icon: const Icon(Icons.arrow_forward_rounded, color: Colors.teal,))
                             ],

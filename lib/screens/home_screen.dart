@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ncrypt/components/profile_image.dart';
 import 'package:ncrypt/controller/auth_controller.dart';
 import 'package:ncrypt/screens/chat_menu.dart';
-import 'package:routemaster/routemaster.dart';
-
 import '../components/drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
