@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:ncrypt/components/profile_image.dart';
 import '../models/user.dart';
 
@@ -9,6 +10,9 @@ class ChatThread extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final time = DateFormat(DateFormat.HOUR24_MINUTE).format(user.lastInteracted!);
+
     final size = MediaQuery.of(context).size;
     return MaterialButton(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -33,7 +37,7 @@ class ChatThread extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("@${user.username}", style: const TextStyle(fontSize: 16)),
-                    const Text("09:00", style: TextStyle(fontSize: 12),)
+                    Text("${time}", style: TextStyle(fontSize: 12),)
                   ],
                 ),
               ),

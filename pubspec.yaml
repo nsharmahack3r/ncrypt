@@ -28,17 +28,25 @@ dependencies:
   #Requests and responses
   http: ^0.13.5
 
-  flutter_secure_storage: ^6.0.0
+  #flutter_secure_storage: ^4.0.0
+  shared_preferences: ^2.0.11
 
   sensors_plus: ^2.0.1
 
   #firebase
-  firebase_core: ^2.3.0
-  firebase_messaging: ^14.1.1
+  firebase_core: ^1.24.0
+  firebase_messaging:
+
+  implicitly_animated_list: ^2.1.0
+
+  intl: ^0.18.0
 
   #local DB
   isar: *isar_version
   isar_flutter_libs: *isar_version
+
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
   flutter_test:

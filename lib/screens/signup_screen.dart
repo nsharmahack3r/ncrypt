@@ -45,6 +45,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       body: Stack(
         children: [
           StreamBuilder<AccelerometerEvent>(
+            stream: accelerometerEvents,
             builder: (context, event){
               final AccelerometerEvent? acceleration = event.data;
               if(acceleration == null) {
@@ -69,6 +70,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
 
           StreamBuilder<AccelerometerEvent>(
+            stream: accelerometerEvents,
             builder: (context, event){
               final AccelerometerEvent? acceleration = event.data;
               if(acceleration == null) {
