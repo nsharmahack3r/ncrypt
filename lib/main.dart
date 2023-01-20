@@ -55,10 +55,6 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
-    print("Inside initSate of App");
-    FirebaseMessaging.onMessage.listen((event) async {
-      onBackgroundMessage(event);
-    });
     initUser();
   }
 
