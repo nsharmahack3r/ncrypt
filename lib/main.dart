@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ncrypt/models/message.dart';
 import 'package:ncrypt/service/local_db.dart';
 import 'package:ncrypt/service/secure_storage_service.dart';
@@ -12,9 +13,12 @@ import 'controller/auth_controller.dart';
 import 'models/user.dart';
 import 'routes.dart';
 
-Future<void> onBackgroundMessage(RemoteMessage message) async {
-  print("background message received");
-  print(message.toMap().toString());
+Future<void> onBackgroundMessage(RemoteMessage event) async {
+  final message = Message.fromJson(event.data);
+  final user = User.fromJson(event.data);
+
+  final dbService = LocalDBService();
+  dbService.handleIncomingMessage(message, user);
 }
 
 void main() async {
@@ -22,6 +26,7 @@ void main() async {
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
+
   FirebaseMessaging.onMessage.listen((event) async {
     final message = Message.fromJson(event.data);
     final user = User.fromJson(event.data);

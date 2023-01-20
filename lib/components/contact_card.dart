@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ncrypt/components/profile_image.dart';
 
 import '../models/user.dart';
@@ -12,7 +13,9 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      onPressed: (){},
+      onPressed: (){
+        context.replace('/chat', extra: user);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

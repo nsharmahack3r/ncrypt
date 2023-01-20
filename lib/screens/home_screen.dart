@@ -7,12 +7,35 @@ import 'package:ncrypt/components/profile_image.dart';
 import 'package:ncrypt/controller/auth_controller.dart';
 import 'package:ncrypt/screens/chat_menu.dart';
 import '../components/drawer.dart';
+import '../models/user.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) async {
+      //final message = Message.fromJson(event.data);
+      final user = User.fromJson(event.data);
+      context.push('/chat', extra:user);
+
+      if(event == null){
+        final eventMessage = await  FirebaseMessaging.instance.getInitialMessage();
+        if(eventMessage!=null){
+          final user = User.fromJson(eventMessage.data);
+          context.push('/chat', extra: user);
+        }
+      }
+
+    });
+
+    // final eventMessage = await  FirebaseMessaging.instance.getInitialMessage();
+    // if(eventMessage!=null){
+    //   final user = User.fromJson(eventMessage.data);
+    //   context.push('/chat', extra: user);
+    // }
+
     final user = ref.watch(userProvider);
     return DefaultTabController(
       length: 2,

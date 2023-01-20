@@ -1,6 +1,6 @@
 class ApiEndPoints{
   static const String _prodUrl = 'https://n-crypt-production.up.railway.app';
-  static const String _devUrl = "http://192.168.31.170:5500";
+  static const String _devUrl = "http://192.168.249.171:5500";
   static const String _baseUrl = _prodUrl;
   static const String _auth = '$_baseUrl/auth';
 

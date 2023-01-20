@@ -10,23 +10,6 @@ class LocalDBService{
     db = openDB();
   }
 
-  // Future<void> saveMessage(Message message, User? user) async {
-  //   final isar = await db;
-  //   isar.writeTxnSync(() => isar.messages.putSync(message));
-  //   if(user!=null){
-  //     final existingUser = await isar.users.filter().uidEqualTo(message.sender).findFirst();
-  //     if(existingUser == null){
-  //       print("Found a new user");
-  //       final newUser = user.copyWith(lastInteracted: message.sentAt);
-  //       isar.writeTxnSync(() => isar.users.putSync(newUser));
-  //     } else {
-  //       print("Found same user");
-  //       existingUser.lastInteracted = message.sentAt;
-  //       isar.writeTxnSync(() => isar.users.putSync(existingUser));
-  //     }
-  //   }
-  // }
-
   Future<void> handleIncomingMessage(Message message, User user) async {
     final isar = await db;
     isar.writeTxnSync(() => isar.messages.putSync(message));
@@ -69,7 +52,7 @@ class LocalDBService{
 
   Stream<List<User>> listenToUsers() async *{
     final isar = await db;
-    yield* isar.users.where().watch(fireImmediately: true);
+    yield* isar.users.where().sortByLastInteractedDesc().watch(fireImmediately: true);
   }
 
   Future<Isar> openDB() async {

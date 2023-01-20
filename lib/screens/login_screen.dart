@@ -183,8 +183,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             stream: accelerometerEvents,
             builder: (context, event){
               final AccelerometerEvent? acceleration = event.data;
-              print('Acceleration => ');
-              print(acceleration);
               if(acceleration == null) {
                 return Container();
               }
