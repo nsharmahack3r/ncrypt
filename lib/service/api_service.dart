@@ -31,6 +31,9 @@ class ApiService{
     }
     try {
       final response = await http.get(Uri.parse(url), headers: requestHeaders);
+      if(kDebugMode){
+        log('RESPONSE ==> ${response.body}');
+      }
       return _returnAPIResult(response);
     } on SocketException{
       return Left(Failure(message: "Failed to send request"));

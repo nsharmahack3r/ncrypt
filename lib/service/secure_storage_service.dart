@@ -1,17 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
 
 final secureStorageProvider = Provider<SecureStorage>((ref)=>SecureStorage());
 
 class SecureStorage{
-  final _storage = const FlutterSecureStorage();
+
   final String _key = "USER_KEY";
   Future<User?> getUser() async {
-    final String? val = await _storage.read(key: _key);
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final String? val = sharedPrefs.getString(_key);
     if(val!=null){
       try{
         return User.fromJson(jsonDecode(val));
@@ -23,11 +24,13 @@ class SecureStorage{
   }
 
   void saveUser(User user) async {
+    final sharedPrefs = await SharedPreferences.getInstance();
     final String val = jsonEncode(user.toJson());
-    await _storage.write(key: _key, value: val);
+    await sharedPrefs.setString(_key, val);
   }
 
-  void deleteAll(){
-    _storage.deleteAll();
+  void deleteAll() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    sharedPrefs.clear();
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ncrypt/models/user.dart';
 import 'package:ncrypt/service/api_service.dart';
+import 'package:ncrypt/service/local_db.dart';
 import 'package:ncrypt/values/endpoints.dart';
 
 import '../models/failure.dart';
@@ -14,12 +15,16 @@ Future<void> onBackgroundMessage(RemoteMessage message) async {
 }
 
 final messageRepositoryProvider = Provider<MessageRepository>((ref) {
-  return MessageRepository(service: ApiService());
+  return MessageRepository(service: ApiService(), localDBService: LocalDBService());
 });
 
 class MessageRepository {
   final ApiService _service;
-  MessageRepository({required ApiService service}) : _service = service;
+  final LocalDBService _localDBService;
+  MessageRepository({
+    required ApiService service,
+    required LocalDBService localDBService,
+  }) : _service = service, _localDBService = localDBService;
   Future<bool> sendMessage({
     required String from,
     required String to,
@@ -41,5 +46,6 @@ class MessageRepository {
       final bool result = r['success'] ?? false;
       return result;
     });
+
   }
 }
